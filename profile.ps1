@@ -13,6 +13,8 @@ function EnterSelfSigned-PSSession([String]$Computer){
      Enter-PSSession $Computer -Credential (Get-Credential) -Authentication Basic -UseSSL -SessionOption (New-PSSessionOption -SkipCACheck -SkipCNCheck)
 }
 
-function Accept-HostKey([parameter(Position=0)][string]$computer){
-    Write-Output "y" | plink.exe $computer
+function Accept-HostKey([parameter(Position=0)][string[]]$computers){
+    foreach($computer in $computers){
+        Write-Output "y" | plink.exe $computer
+    }
 }
