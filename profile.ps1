@@ -1,6 +1,11 @@
 Import-Module -Name Vmware.VimAutomation.Core
 New-Alias -Name "tc" -Value Test-Connection
 
+#stop mobaxterm from screwing with path
+$path=@()
+$env:PATH.Split(";") | ForEach-Object {if($_ -notmatch "mobaxterm"){$path+=$_}}
+$env:path = ($path -join ";")
+
 function Mount-Datastore([String]$Datastore){
     $ErrorActionPreference = $false
     if( "ds" -in (Get-PSDrive).name){
